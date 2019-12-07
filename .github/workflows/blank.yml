@@ -1,0 +1,121 @@
+"""
+需求：员工管理系统
+功能:
+1.添加员工信息
+2.删除员工信息
+3.修改员工信息
+4.查看单个员工信息
+5.查看所有员工信息
+6.退出
+
+技术：函数、数据类型(字典列表)、循环、条件语句
+"""
+
+def addinfo():              #添加员工信息
+    tmp_dic={"姓名":"***","性别":"**","年龄":"***","工资":"*****"}
+    tmp_dic["姓名"]=str(input("请输入员工姓名："))
+    tmp_dic["性别"]=str(input("请输入员工性别："))
+    tmp_dic["年龄"]=int(input("请输入员工年龄："))
+    tmp_dic["工资"]=int(input("请输入员工工资："))
+    return tmp_dic
+
+def delinfo(l):              #删除员工信息
+    tmpname=str(input("请输入要删除的员工的姓名："))
+    flg=0
+    for i in range(len(l)):
+        if l[i]["姓名"]==tmpname:
+            l.pop(i)
+            flg=1
+            return
+    if flg==0:
+        print("系统里没有该员工，无需删除！")
+        return
+
+def amendinfo(l):            #修改员工信息
+    tmpname=str(input("请输入要修改的员工的姓名："))
+    for i in range (len(l)):
+        if l[i]["姓名"]==tmpname:
+            while True:
+                tmp_chse=int(input("请选择你要修改的项目：\n1.姓名\n2.性别\n3.年龄\n4.工资"))
+                if tmp_chse==1:
+                    l[i]["姓名"]=str(input("请输入新的姓名"))
+                    chse_YN=str(input("是否修改其他信息,y修改其他n退出"))
+                    if chse_YN=="y":
+                        continue
+                    else:
+                        break
+                elif tmp_chse==2:
+                    l[i]["性别"]=str(input("请输入新的性别"))
+                    chse_YN=str(input("是否修改其他信息,y修改其他n退出"))
+                    if chse_YN=="y":
+                        continue
+                    else:
+                        break
+                elif tmp_chse==3:
+                    l[i]["年龄"]=str(input("请输入新的年龄"))
+                    chse_YN=str(input("是否修改其他信息,y修改其他n退出"))
+                    if chse_YN=="y":
+                        continue
+                    else:
+                        break
+                elif tmp_chse==4:
+                    l[i]["工资"]=str(input("请输入新的工资"))
+                    chse_YN=str(input("是否修改其他信息,y修改其他n退出"))
+                    if chse_YN=="y":
+                        continue
+                    else:
+                        break
+        else:
+            print("查无此人，请添加员工信息")
+            break
+
+def check_One_info(l,ch_name):       #查看单个员工信息
+    flg=0
+    for i in range(len(l)):
+        if l[i]["姓名"]==ch_name:
+            print(l[i])
+            flg=1
+    if flg==0:
+        print("查无此人，主添加员工信息")
+
+def check_all_info(l):       #查看所有员工信息
+    print("-"*30)
+    print("姓名     性别    年龄    工资")
+    for i in range(len(l)):
+        print(l[i].values())
+
+def home_page():            #打印主页面
+    print("-"*30)
+    print(" "*10+"员工管理系统")
+    print("\n")
+    print("1.添加员工信息")
+    print("2.删除员工信息")
+    print("3.修改员工信息")
+    print("4.查看单个员工信息")
+    print("5.查看所有员工信息")
+    print("6.退出")
+    print("-"*30)
+
+def main():                 #主函数，进入员工管理系统
+    employeeinfo = []          #定义列表全局变量存放员工信息
+    while True:
+        home_page()
+        choosenum=int(input("请选择你需要的功能："))
+        if choosenum==1:
+            employeeinfo.append(addinfo())
+        elif choosenum==2:
+            delinfo(employeeinfo)
+        elif choosenum==3:
+            amendinfo(employeeinfo)
+        elif choosenum==4:
+            ch_namex=str(input("请输入你要查询的员工的姓名："))
+            check_One_info(employeeinfo,ch_namex)
+        elif choosenum==5:
+            check_all_info(employeeinfo)
+        elif choosenum==6:
+            break
+        else:
+            print("你选择的选项不存在，请重新输入：")
+
+if __name__ == "__main__":
+    main()
